@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="antialiased">
+<html lang="ru" class="antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>L'ÉLÉGANCE NOIRE | Organic Couture</title>
-    <meta name="description" content="Avant-garde bridal couture. Almaty. Astana. Shymkent.">
+    <title>L'ÉLÉGANCE NOIRE | Свадебный Кутюр Казахстан</title>
+    <meta name="description" content="Премиальные свадебные платья. Алматы. Астана. Шымкент.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +20,9 @@
                         '3xl': '1920px', // Large Desktop
                     },
                     colors: {
-                        'noir-bg': '#FDFBF7', // Теплый дорогой офф-вайт (как бумага)
-                        'noir-ink': '#080808', // Глубокий черный (не #000)
-                        'noir-accent': '#C91A25', // Deep Carmine (благородный красный)
+                        'noir-bg': '#FDFBF7', // Теплый дорогой офф-вайт
+                        'noir-ink': '#080808', // Глубокий черный
+                        'noir-accent': '#C91A25', // Благородный красный
                         'noir-gray': '#E5E5E5',
                     },
                     fontFamily: {
@@ -33,7 +33,7 @@
                         'widest-art': '0.3em',
                     },
                     animation: {
-                        'marquee': 'marquee 30s linear infinite',
+                        'marquee': 'marquee 40s linear infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -56,10 +56,10 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Noise Overlay (Film Grain Effect) */
+        /* Noise Overlay (Film Grain Effect for Texture) */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9000; opacity: 0.03;
+            pointer-events: none; z-index: 9000; opacity: 0.025;
             background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
@@ -116,18 +116,18 @@
     modalOpen: false,
     activeProduct: null,
     products: [
-        { id: 1, name: 'White Petal', price: '4 200 000 ₸', desc: 'Silk organza petals. Hand-stitched.', img: 'images/image1.jpg' },
-        { id: 2, name: 'Dark Stem', price: '5 600 000 ₸', desc: 'Structure bodice. Velvet details.', img: 'images/image2.jpg' },
-        { id: 3, name: 'Morning Dew', price: '3 800 000 ₸', desc: 'Crystal mesh overlay.', img: 'images/image3.jpg' },
-        { id: 4, name: 'The Thorn', price: '4 500 000 ₸', desc: 'Sharp silhouette. Crepe.', img: 'images/image4.jpg' },
-        { id: 5, name: 'Bloom V', price: '6 100 000 ₸', desc: 'Voluminous sleeves.', img: 'images/image5.jpg' },
-        { id: 6, name: 'Root & Earth', price: '4 900 000 ₸', desc: 'Raw hem linen blend.', img: 'images/image6.jpg' },
-        { id: 7, name: 'Night Shade', price: '5 200 000 ₸', desc: 'Black lace applique.', img: 'images/image7.jpg' },
-        { id: 8, name: 'Gardenia', price: '7 000 000 ₸', desc: 'Satin finish. Floral drape.', img: 'images/image8.jpg' },
-        { id: 9, name: 'Wild Rose', price: '3 900 000 ₸', desc: 'Asymmetric ruffles.', img: 'images/image9.jpg' },
-        { id: 10, name: 'Glass Lily', price: '8 500 000 ₸', desc: 'Transparent corset.', img: 'images/image10.jpg' },
-        { id: 11, name: 'Orchid', price: '4 100 000 ₸', desc: 'Architectural folding.', img: 'images/image11.jpg' },
-        { id: 12, name: 'Eternal Flora', price: '9 200 000 ₸', desc: 'The Masterpiece.', img: 'images/image12.jpg' }
+        { id: 1, name: 'White Petal', price: '4 200 000 ₸', desc: 'Шелковая органза. Ручная вышивка лепестками.', img: 'images/image1.jpg' },
+        { id: 2, name: 'Dark Stem', price: '5 600 000 ₸', desc: 'Структурированный корсет. Бархатные акценты.', img: 'images/image2.jpg' },
+        { id: 3, name: 'Morning Dew', price: '3 800 000 ₸', desc: 'Наложение кристаллической сетки.', img: 'images/image3.jpg' },
+        { id: 4, name: 'The Thorn', price: '4 500 000 ₸', desc: 'Острый силуэт. Минималистичный креп.', img: 'images/image4.jpg' },
+        { id: 5, name: 'Bloom V', price: '6 100 000 ₸', desc: 'Объемные рукава-бутоны.', img: 'images/image5.jpg' },
+        { id: 6, name: 'Root & Earth', price: '4 900 000 ₸', desc: 'Необработанный край. Смесь льна.', img: 'images/image6.jpg' },
+        { id: 7, name: 'Night Shade', price: '5 200 000 ₸', desc: 'Аппликация из черного кружева.', img: 'images/image7.jpg' },
+        { id: 8, name: 'Gardenia', price: '7 000 000 ₸', desc: 'Сатиновый финиш. Цветочная драпировка.', img: 'images/image8.jpg' },
+        { id: 9, name: 'Wild Rose', price: '3 900 000 ₸', desc: 'Асимметричные воланы.', img: 'images/image9.jpg' },
+        { id: 10, name: 'Glass Lily', price: '8 500 000 ₸', desc: 'Прозрачный корсет. Эффект стекла.', img: 'images/image10.jpg' },
+        { id: 11, name: 'Orchid', price: '4 100 000 ₸', desc: 'Архитектурные складки.', img: 'images/image11.jpg' },
+        { id: 12, name: 'Eternal Flora', price: '9 200 000 ₸', desc: 'Лимитированная коллекция. Чистое кружево.', img: 'images/image12.jpg' }
     ]
 }">
 
@@ -147,7 +147,7 @@
             <div class="h-[1px] w-full bg-white/20 mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-noir-accent w-0"></div>
             </div>
-            <div class="text-[10px] uppercase tracking-[0.4em] mt-4 opacity-50 font-sans">Preparing Experience</div>
+            <div class="text-[10px] uppercase tracking-[0.4em] mt-4 opacity-50 font-sans">Загрузка Ателье</div>
         </div>
     </div>
 
@@ -167,12 +167,12 @@
          :class="menuOpen ? 'translate-y-0' : '-translate-y-full'">
         <div class="h-full flex flex-col justify-center items-center text-noir-ink p-4">
             <ul class="text-center space-y-4 md:space-y-8">
-                <li><a href="#collection" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">The Collection</a></li>
-                <li><a href="#atelier" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Philosophy</a></li>
-                <li><a href="#booking" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Appointment</a></li>
+                <li><a href="#collection" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Коллекция</a></li>
+                <li><a href="#atelier" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Философия</a></li>
+                <li><a href="#booking" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Запись</a></li>
             </ul>
             <div class="mt-12 md:mt-24 text-xs uppercase tracking-widest text-gray-400">
-                Almaty • Astana • Shymkent
+                Алматы • Астана • Шымкент
             </div>
         </div>
     </div>
@@ -181,29 +181,29 @@
         
         <section class="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
             <div class="absolute inset-0 w-full h-full bg-black">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-70 grayscale transition-transform duration-[2s]" data-speed="0.5">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60 transition-transform duration-[2s]" data-speed="0.5">
                     <source src="images/video1.mp4" type="video/mp4">
                 </video>
             </div>
             
             <div class="relative z-10 text-center mix-blend-difference text-white px-4 w-full">
                 <h2 class="text-[10px] md:text-xs uppercase tracking-widest-art mb-8 opacity-0 reveal-text">
-                    Digital Atelier • Kazakhstan
+                    Свадебное Ателье • Казахстан
                 </h2>
                 <div class="line-mask overflow-hidden mb-2">
                     <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] reveal-text-y">
-                        ORGANIC
+                        ВЫСОКИЙ
                     </h1>
                 </div>
                 <div class="line-mask overflow-hidden">
                     <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] italic reveal-text-y delay-100">
-                        OPULENCE
+                        КУТЮР
                     </h1>
                 </div>
                 
                 <div class="mt-16 opacity-0 reveal-text">
                     <a href="#collection" class="magnetic-btn inline-block border-b border-white pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:text-noir-accent hover:border-noir-accent transition-colors duration-500 hover-trigger">
-                        Explore The Bloom
+                        Смотреть Коллекцию
                     </a>
                 </div>
             </div>
@@ -219,13 +219,14 @@
             <div class="max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row gap-8 md:gap-20 items-start">
                     <div class="w-full md:w-1/4">
-                        <span class="text-[10px] text-noir-accent uppercase tracking-widest font-bold block mb-4 border-t border-noir-accent pt-4 w-12">The Vision</span>
+                        <span class="text-[10px] text-noir-accent uppercase tracking-widest font-bold block mb-4 border-t border-noir-accent pt-4 w-24">Философия Бренда</span>
                     </div>
                     <div class="w-full md:w-3/4">
-                        <p class="text-2xl md:text-5xl font-serif leading-tight text-noir-ink reveal-scroll">
-                            Inspired by the chaotic symmetry of nature. We replace heavy layers with air, structure with flow. <br><br>
-                            <span class="text-lg md:text-2xl font-sans font-light text-gray-500 block mt-8 leading-relaxed">
-                                For the bride who is not afraid to bloom in the dark. Our dresses are grown, not made.
+                        <p class="text-2xl md:text-4xl font-serif leading-tight text-noir-ink reveal-scroll">
+                            Мы создаем не просто платья. Мы ваяем эмоции для современной невесты, которая ценит интеллектуальную роскошь.
+                            <br><br>
+                            <span class="text-lg md:text-xl font-sans font-light text-gray-500 block mt-8 leading-relaxed">
+                                Отвергая тяжеловесность традиций, мы выбираем воздух и архитектурные линии. Это ода женщине, которая не боится своей уникальности. Наши платья не шьются — они рождаются.
                             </span>
                         </p>
                     </div>
@@ -235,8 +236,8 @@
 
         <section id="collection" class="py-10 md:py-20 bg-white">
             <div class="px-6 md:px-12 mb-12 md:mb-24 flex justify-between items-end">
-                <h2 class="text-4xl md:text-7xl font-serif text-noir-ink">The Garden</h2>
-                <span class="hidden md:block text-xs uppercase tracking-widest text-gray-400">12 Unique Pieces</span>
+                <h2 class="text-4xl md:text-7xl font-serif text-noir-ink">Коллекция</h2>
+                <span class="hidden md:block text-xs uppercase tracking-widest text-gray-400">12 Эксклюзивных Образов</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 md:gap-y-32 gap-x-8 px-4 md:px-8">
@@ -248,7 +249,7 @@
                                  loading="lazy">
                             
                             <div class="md:hidden absolute bottom-4 right-4 bg-white/80 px-3 py-1 text-[10px] uppercase tracking-widest backdrop-blur-sm">
-                                View
+                                Обзор
                             </div>
                         </div>
 
@@ -268,16 +269,17 @@
             <div class="absolute inset-0 opacity-40">
                 <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" 
                      class="w-full h-full object-cover"
-                     data-speed="0.3"> </div>
+                     data-speed="0.3">
+            </div>
 
             <div class="relative z-10 text-center px-6">
-                <span class="block text-noir-accent text-xs uppercase tracking-widest mb-4">The Process</span>
-                <h2 class="text-5xl md:text-8xl font-serif mb-8">Hand-Sculpted</h2>
+                <span class="block text-noir-accent text-xs uppercase tracking-widest mb-4">Процесс</span>
+                <h2 class="text-5xl md:text-8xl font-serif mb-8">Ручная Работа</h2>
                 <p class="max-w-md mx-auto text-gray-300 font-light leading-relaxed mb-12">
-                    Imported Japanese silk. French lace. Constructed in our atelier in Almaty with obsessive attention to detail.
+                    Итальянский шелк. Французское кружево. Каждое платье создается в нашем ателье с одержимым вниманием к деталям.
                 </p>
                 <a href="#booking" class="magnetic-btn inline-block border border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-500">
-                    Book Viewing
+                    Записаться на Примерку
                 </a>
             </div>
         </section>
@@ -285,28 +287,28 @@
         <section id="booking" class="py-24 px-6 md:px-20 bg-noir-bg relative">
             <div class="max-w-2xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Private Fitting</h2>
-                    <p class="text-gray-500 font-light">Experience the collection in person.</p>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Приватная Примерка</h2>
+                    <p class="text-gray-500 font-light">Познакомьтесь с коллекцией лично.</p>
                 </div>
 
-                <form class="space-y-12 md:space-y-16" onsubmit="event.preventDefault(); alert('Request sent via WhatsApp.');">
+                <form class="space-y-12 md:space-y-16" onsubmit="event.preventDefault(); alert('Заявка отправлена. Мы свяжемся с вами в WhatsApp.');">
                     <div class="group relative">
-                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Name">
-                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Your Name</label>
+                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Имя">
+                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Ваше Имя</label>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
                         <div class="group relative">
-                            <input type="tel" class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Phone">
-                             <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Phone Number</label>
+                            <input type="tel" class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Телефон">
+                             <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Телефон</label>
                         </div>
                         
                         <div class="group relative">
                             <select class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger text-gray-700 appearance-none">
-                                <option value="" disabled selected>Select Boutique</option>
-                                <option>Almaty (Esentai)</option>
-                                <option>Astana (Talan)</option>
-                                <option>Shymkent (Rixos)</option>
+                                <option value="" disabled selected>Выберите Бутик</option>
+                                <option>Алматы (Esentai Mall)</option>
+                                <option>Астана (Talan Towers)</option>
+                                <option>Шымкент (Rixos)</option>
                             </select>
                             <div class="absolute right-0 top-6 pointer-events-none text-gray-400">↓</div>
                         </div>
@@ -314,7 +316,7 @@
 
                     <div class="pt-8 text-center w-full">
                         <button type="submit" class="magnetic-btn w-full md:w-auto px-16 py-5 bg-noir-ink text-white font-serif text-lg tracking-wider hover:bg-noir-accent transition-colors duration-500 hover-trigger shadow-2xl">
-                            Request Appointment
+                            Отправить Заявку
                         </button>
                     </div>
                 </form>
@@ -324,17 +326,17 @@
         <footer class="bg-noir-ink text-white pt-10 pb-20 md:pb-10 overflow-hidden">
             <div class="w-full border-b border-white/10 pb-6 mb-8 overflow-hidden">
                 <div class="whitespace-nowrap animate-marquee flex gap-12 text-[10px] md:text-xs uppercase tracking-widest-art text-gray-400">
-                    <span>Almaty — Esentai Mall</span> <span class="text-noir-accent">•</span>
-                    <span>Astana — Talan Towers</span> <span class="text-noir-accent">•</span>
-                    <span>Shymkent — Rixos Khadisha</span> <span class="text-noir-accent">•</span>
-                    <span>Organic Couture</span> <span class="text-noir-accent">•</span>
-                    <span>Almaty — Esentai Mall</span> <span class="text-noir-accent">•</span>
-                    <span>Astana — Talan Towers</span> <span class="text-noir-accent">•</span>
+                    <span>Алматы — Esentai Mall</span> <span class="text-noir-accent">•</span>
+                    <span>Астана — Talan Towers</span> <span class="text-noir-accent">•</span>
+                    <span>Шымкент — Rixos Khadisha</span> <span class="text-noir-accent">•</span>
+                    <span>Высокий Кутюр</span> <span class="text-noir-accent">•</span>
+                    <span>Алматы — Esentai Mall</span> <span class="text-noir-accent">•</span>
+                    <span>Запишитесь на примерку</span> <span class="text-noir-accent">•</span>
                 </div>
             </div>
 
             <div class="px-8 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-gray-500 gap-4">
-                <div>© 2026 L'Élégance Noire.</div>
+                <div>© 2026 L'Élégance Noire. Все права защищены.</div>
                 <div class="flex gap-8">
                     <a href="#" class="hover:text-white transition-colors">Instagram</a>
                     <a href="#" class="hover:text-white transition-colors">WhatsApp</a>
@@ -366,16 +368,16 @@
             </div>
 
             <div class="w-full h-[60vh] md:w-1/2 md:h-full p-8 md:p-20 flex flex-col justify-start md:justify-center overflow-y-auto bg-white">
-                <span class="text-noir-accent text-[10px] uppercase tracking-widest font-bold mb-4">Collection Piece</span>
+                <span class="text-noir-accent text-[10px] uppercase tracking-widest font-bold mb-4">Эксклюзив</span>
                 <h2 class="text-4xl md:text-6xl font-serif mb-4 text-noir-ink" x-text="activeProduct?.name"></h2>
                 <p class="text-xl md:text-2xl text-gray-800 font-light mb-8" x-text="activeProduct?.price"></p>
                 
                 <div class="w-12 h-[1px] bg-gray-200 mb-8"></div>
                 
-                <p class="text-sm md:text-base text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc + ' Handcrafted using sustainable organic fibers. Available for private fitting only.'"></p>
+                <p class="text-sm md:text-base text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc + ' Ручная работа. Доступно только для приватной примерки.'"></p>
                 
                 <a href="https://wa.me/77000000000" target="_blank" class="w-full py-4 border border-noir-ink text-center hover:bg-noir-ink hover:text-white transition-all duration-300 uppercase text-xs tracking-widest hover-trigger">
-                    Reserve via WhatsApp
+                    Забронировать в WhatsApp
                 </a>
             </div>
         </div>
@@ -443,7 +445,6 @@
         const cursorDot = document.getElementById('cursor-dot');
         const cursorCircle = document.getElementById('cursor-circle');
         
-        // Только если устройство поддерживает hover (мышь)
         if (window.matchMedia("(hover: hover)").matches) {
             window.addEventListener('mousemove', (e) => {
                 const posX = e.clientX;
@@ -495,12 +496,12 @@
         });
 
         // Parallax Images
-        gsap.utils.toArray('img[data-speed]').forEach(img => {
-            gsap.to(img, {
+        gsap.utils.toArray('img[data-speed], video[data-speed]').forEach(media => {
+            gsap.to(media, {
                 yPercent: -20,
                 ease: "none",
                 scrollTrigger: {
-                    trigger: img.parentElement,
+                    trigger: media.parentElement,
                     start: "top bottom",
                     end: "bottom top",
                     scrub: true
