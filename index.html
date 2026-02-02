@@ -2,9 +2,9 @@
 <html lang="en" class="antialiased">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'ÉLÉGANCE NOIRE | Digital Atelier</title>
-    <meta name="description" content="Avant-garde bridal couture. Where silence meets texture.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>L'ÉLÉGANCE NOIRE | Organic Couture</title>
+    <meta name="description" content="Avant-garde bridal couture. Almaty. Astana. Shymkent.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,21 +15,31 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    screens: {
+                        'xs': '375px', // Mobile S
+                        '3xl': '1920px', // Large Desktop
+                    },
                     colors: {
-                        'noir-bg': '#ffffff',
-                        'noir-ink': '#050505',
-                        'noir-accent': '#FF3B30', // International Klein Red
-                        'noir-gray': '#F4F4F4',
+                        'noir-bg': '#FDFBF7', // Теплый дорогой офф-вайт (как бумага)
+                        'noir-ink': '#080808', // Глубокий черный (не #000)
+                        'noir-accent': '#C91A25', // Deep Carmine (благородный красный)
+                        'noir-gray': '#E5E5E5',
                     },
                     fontFamily: {
                         serif: ['"Cormorant Garamond"', 'serif'],
                         sans: ['"Inter"', 'sans-serif'],
                     },
-                    cursor: {
-                        none: 'none',
-                    },
                     letterSpacing: {
-                        'widest-art': '0.25em',
+                        'widest-art': '0.3em',
+                    },
+                    animation: {
+                        'marquee': 'marquee 30s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
                     }
                 }
             }
@@ -37,98 +47,62 @@
     </script>
 
     <style>
-        /* Base Reset */
+        /* Base Setup */
         body {
-            background-color: #ffffff;
-            color: #050505;
+            background-color: #FDFBF7;
+            color: #080808;
             overflow-x: hidden;
-            cursor: none; /* Скрываем стандартный курсор */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Noise Overlay (Зернистость) */
+        /* Noise Overlay (Film Grain Effect) */
         .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.04;
-            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.03;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        /* Custom Cursor */
+        /* --- DESKTOP CURSOR (Hidden on Mobile) --- */
+        @media (hover: hover) and (pointer: fine) {
+            body { cursor: none; }
+            #cursor-dot, #cursor-circle { display: block; }
+        }
+        @media (hover: none) {
+            body { cursor: auto; }
+            #cursor-dot, #cursor-circle { display: none !important; }
+        }
+
         #cursor-dot, #cursor-circle {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 10000;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
+            border-radius: 50%; transform: translate(-50%, -50%);
         }
-        #cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #050505;
-        }
+        #cursor-dot { width: 6px; height: 6px; background-color: #080808; }
         #cursor-circle {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(5, 5, 5, 0.3);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            width: 40px; height: 40px; border: 0.5px solid rgba(8, 8, 8, 0.4);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background-color 0.3s;
         }
-        /* Cursor Hover State */
         body.hovering #cursor-circle {
-            width: 80px;
-            height: 80px;
-            background-color: rgba(255, 59, 48, 0.1); /* Red tint */
-            border-color: #FF3B30;
-            mix-blend-mode: difference;
-        }
-        body.hovering #cursor-dot {
-            background-color: #FF3B30;
+            width: 90px; height: 90px;
+            background-color: rgba(201, 26, 37, 0.05); /* Red Tint */
+            border-color: #C91A25;
+            mix-blend-mode: multiply;
         }
 
-        /* Smooth Scroll Setup */
-        html.lenis {
-            height: auto;
-        }
-        .lenis.lenis-smooth {
-            scroll-behavior: auto;
-        }
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-
-        /* Text Selection */
-        ::selection {
-            background: #FF3B30;
-            color: white;
-        }
-
-        /* Hide Scrollbar */
-        ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
+        /* --- UTILITIES --- */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
         
         /* Preloader */
         #preloader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            color: #fff;
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
+            position: fixed; inset: 0; background: #080808; color: #fff;
+            z-index: 10001; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
+
+        /* Text Reveal Mask */
+        .line-mask { overflow: hidden; }
+        .reveal-text-y { transform: translateY(100%); }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -142,269 +116,320 @@
     modalOpen: false,
     activeProduct: null,
     products: [
-        { id: 1, name: 'The Swan', price: '€4,200', desc: 'Italian Silk. Hand-draped bodice.', img: 'images/image1.jpg' },
-        { id: 2, name: 'Midnight Void', price: '€5,600', desc: 'Black velvet accents. Architectural silhouette.', img: 'images/image2.jpg' },
-        { id: 3, name: 'Ethereal Mist', price: '€3,800', desc: 'Layered tulle. Invisible seams.', img: 'images/image3.jpg' },
-        { id: 4, name: 'Sharp Edge', price: '€4,500', desc: 'Minimalist crepe. Deep V-back.', img: 'images/image4.jpg' },
-        { id: 5, name: 'Modern Muse', price: '€6,100', desc: 'Asymmetrical cuts. Raw hems.', img: 'images/image5.jpg' },
-        { id: 6, name: 'Silent Noise', price: '€4,900', desc: 'Textured organza. High neck.', img: 'images/image6.jpg' },
-        { id: 7, name: 'Blanc Noir', price: '€5,200', desc: 'Contrast piping. Structured corset.', img: 'images/image7.jpg' },
-        { id: 8, name: 'The Sculptor', price: '€7,000', desc: 'Heavy satin. Cathedral train.', img: 'images/image8.jpg' },
-        { id: 9, name: 'Soft Concrete', price: '€3,900', desc: 'Matte finish. Side slit.', img: 'images/image9.jpg' },
-        { id: 10, name: 'Glass Heart', price: '€8,500', desc: 'Crystal embellishments. Sheer sleeves.', img: 'images/image10.jpg' },
-        { id: 11, name: 'Paper Doll', price: '€4,100', desc: 'Structured pleats. Origami details.', img: 'images/image11.jpg' },
-        { id: 12, name: 'Final Breath', price: '€9,200', desc: 'Limited edition. Pure lace.', img: 'images/image12.jpg' }
+        { id: 1, name: 'White Petal', price: '4 200 000 ₸', desc: 'Silk organza petals. Hand-stitched.', img: 'images/image1.jpg' },
+        { id: 2, name: 'Dark Stem', price: '5 600 000 ₸', desc: 'Structure bodice. Velvet details.', img: 'images/image2.jpg' },
+        { id: 3, name: 'Morning Dew', price: '3 800 000 ₸', desc: 'Crystal mesh overlay.', img: 'images/image3.jpg' },
+        { id: 4, name: 'The Thorn', price: '4 500 000 ₸', desc: 'Sharp silhouette. Crepe.', img: 'images/image4.jpg' },
+        { id: 5, name: 'Bloom V', price: '6 100 000 ₸', desc: 'Voluminous sleeves.', img: 'images/image5.jpg' },
+        { id: 6, name: 'Root & Earth', price: '4 900 000 ₸', desc: 'Raw hem linen blend.', img: 'images/image6.jpg' },
+        { id: 7, name: 'Night Shade', price: '5 200 000 ₸', desc: 'Black lace applique.', img: 'images/image7.jpg' },
+        { id: 8, name: 'Gardenia', price: '7 000 000 ₸', desc: 'Satin finish. Floral drape.', img: 'images/image8.jpg' },
+        { id: 9, name: 'Wild Rose', price: '3 900 000 ₸', desc: 'Asymmetric ruffles.', img: 'images/image9.jpg' },
+        { id: 10, name: 'Glass Lily', price: '8 500 000 ₸', desc: 'Transparent corset.', img: 'images/image10.jpg' },
+        { id: 11, name: 'Orchid', price: '4 100 000 ₸', desc: 'Architectural folding.', img: 'images/image11.jpg' },
+        { id: 12, name: 'Eternal Flora', price: '9 200 000 ₸', desc: 'The Masterpiece.', img: 'images/image12.jpg' }
     ]
 }">
 
     <div class="noise-overlay"></div>
+    
     <div id="cursor-dot"></div>
     <div id="cursor-circle"></div>
 
+    <a href="https://wa.me/77000000000" target="_blank" 
+       class="magnetic-btn fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[80] w-14 h-14 md:w-16 md:h-16 bg-white/90 backdrop-blur border border-gray-200 rounded-full flex items-center justify-center text-noir-ink hover:bg-noir-ink hover:text-white transition-all duration-500 shadow-2xl hover-trigger hover:scale-110">
+        <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+
     <div id="preloader">
-        <div class="text-center">
-            <div id="loader-counter" class="text-8xl font-serif font-light">0</div>
-            <div class="text-xs uppercase tracking-widest-art mt-4 opacity-50">Loading Atelier</div>
+        <div class="text-center relative">
+            <div id="loader-counter" class="text-6xl md:text-9xl font-serif font-light text-white">0</div>
+            <div class="h-[1px] w-full bg-white/20 mt-4 relative overflow-hidden">
+                <div id="loader-bar" class="absolute top-0 left-0 h-full bg-noir-accent w-0"></div>
+            </div>
+            <div class="text-[10px] uppercase tracking-[0.4em] mt-4 opacity-50 font-sans">Preparing Experience</div>
         </div>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 px-8 py-6 mix-blend-difference text-white flex justify-between items-center transition-all duration-500">
-        <a href="#" class="text-2xl font-serif tracking-widest relative group hover-trigger">
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference text-white flex justify-between items-start">
+        <a href="#" class="text-xl md:text-2xl font-serif tracking-widest relative group hover-trigger magnetic-btn">
             L'ÉLÉGANCE<span class="text-noir-accent">.</span>
         </a>
 
-        <button @click="menuOpen = !menuOpen" class="flex flex-col gap-2 hover-trigger group w-10">
-            <span class="h-[1px] bg-white w-full transition-all duration-300" :class="menuOpen ? 'rotate-45 translate-y-2.5 bg-noir-accent' : ''"></span>
-            <span class="h-[1px] bg-white w-2/3 ml-auto group-hover:w-full transition-all duration-300" :class="menuOpen ? 'opacity-0' : ''"></span>
-            <span class="h-[1px] bg-white w-full transition-all duration-300" :class="menuOpen ? '-rotate-45 -translate-y-2.5 bg-noir-accent' : ''"></span>
+        <button @click="menuOpen = !menuOpen" class="magnetic-btn flex flex-col gap-[6px] hover-trigger group w-10 md:w-12 items-end p-2">
+            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? 'rotate-45 translate-y-[7px] bg-noir-accent' : ''"></span>
+            <span class="h-[1px] bg-white w-2/3 transition-opacity duration-300" :class="menuOpen ? 'opacity-0' : ''"></span>
+            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? '-rotate-45 -translate-y-[7px] bg-noir-accent' : ''"></span>
         </button>
     </nav>
 
-    <div class="fixed inset-0 bg-white z-40 transform transition-transform duration-700 ease-[0.22, 1, 0.36, 1]"
+    <div class="fixed inset-0 bg-[#FDFBF7] z-40 transform transition-transform duration-[0.8s] ease-[0.76, 0, 0.24, 1]"
          :class="menuOpen ? 'translate-y-0' : '-translate-y-full'">
-        <div class="h-full flex flex-col justify-center items-center text-noir-ink">
-            <ul class="text-center space-y-8">
-                <li><a href="#collection" @click="menuOpen = false" class="text-5xl font-serif hover:italic hover:text-noir-accent transition-colors hover-trigger">Collection</a></li>
-                <li><a href="#atelier" @click="menuOpen = false" class="text-5xl font-serif hover:italic hover:text-noir-accent transition-colors hover-trigger">The Atelier</a></li>
-                <li><a href="#booking" @click="menuOpen = false" class="text-5xl font-serif hover:italic hover:text-noir-accent transition-colors hover-trigger">Appointment</a></li>
+        <div class="h-full flex flex-col justify-center items-center text-noir-ink p-4">
+            <ul class="text-center space-y-4 md:space-y-8">
+                <li><a href="#collection" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">The Collection</a></li>
+                <li><a href="#atelier" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Philosophy</a></li>
+                <li><a href="#booking" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Appointment</a></li>
             </ul>
+            <div class="mt-12 md:mt-24 text-xs uppercase tracking-widest text-gray-400">
+                Almaty • Astana • Shymkent
+            </div>
         </div>
     </div>
 
     <main id="smooth-wrapper">
         
-        <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover grayscale opacity-80" data-speed="0.5">
-                <source src="images/video1.mp4" type="video/mp4">
-            </video>
+        <section class="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+            <div class="absolute inset-0 w-full h-full bg-black">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-70 grayscale transition-transform duration-[2s]" data-speed="0.5">
+                    <source src="images/video1.mp4" type="video/mp4">
+                </video>
+            </div>
             
-            <div class="relative z-10 text-center mix-blend-difference text-white">
-                <h2 class="text-xs md:text-sm uppercase tracking-widest-art mb-6 opacity-0 reveal-text">Spring / Summer 2026</h2>
-                <h1 class="text-7xl md:text-9xl font-serif font-light leading-none opacity-0 reveal-text">
-                    SILENCE <br> & FORM
-                </h1>
-                <div class="mt-12 opacity-0 reveal-text">
-                    <a href="#collection" class="border border-white/30 px-8 py-3 uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all duration-500 hover-trigger">
-                        Explore Collection
+            <div class="relative z-10 text-center mix-blend-difference text-white px-4 w-full">
+                <h2 class="text-[10px] md:text-xs uppercase tracking-widest-art mb-8 opacity-0 reveal-text">
+                    Digital Atelier • Kazakhstan
+                </h2>
+                <div class="line-mask overflow-hidden mb-2">
+                    <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] reveal-text-y">
+                        ORGANIC
+                    </h1>
+                </div>
+                <div class="line-mask overflow-hidden">
+                    <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] italic reveal-text-y delay-100">
+                        OPULENCE
+                    </h1>
+                </div>
+                
+                <div class="mt-16 opacity-0 reveal-text">
+                    <a href="#collection" class="magnetic-btn inline-block border-b border-white pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:text-noir-accent hover:border-noir-accent transition-colors duration-500 hover-trigger">
+                        Explore The Bloom
                     </a>
                 </div>
             </div>
 
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 mix-blend-difference text-white flex flex-col items-center gap-2">
-                <span class="text-[10px] tracking-widest uppercase">Scroll</span>
-                <div class="w-[1px] h-12 bg-white/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1/2 bg-noir-accent animate-scrolldown"></div>
+            <div class="absolute bottom-10 left-0 w-full flex justify-center mix-blend-difference text-white opacity-0 reveal-text">
+                <div class="w-[1px] h-16 bg-white/30 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
                 </div>
             </div>
         </section>
 
-        <section class="py-32 px-6 md:px-20 bg-noir-bg relative">
-            <div class="max-w-4xl mx-auto text-center">
-                <p class="text-xs text-noir-accent uppercase tracking-widest mb-8 font-bold">• The Philosophy</p>
-                <p class="text-3xl md:text-5xl font-serif leading-tight text-noir-ink reveal-scroll">
-                    We do not make dresses. We sculpt emotions. <br>
-                    <span class="italic text-gray-400">"L'Élégance Noire"</span> is an ode to the woman who finds beauty in shadows, contrast, and absolute silence.
-                </p>
+        <section class="py-24 md:py-40 px-6 md:px-20 bg-noir-bg relative">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-8 md:gap-20 items-start">
+                    <div class="w-full md:w-1/4">
+                        <span class="text-[10px] text-noir-accent uppercase tracking-widest font-bold block mb-4 border-t border-noir-accent pt-4 w-12">The Vision</span>
+                    </div>
+                    <div class="w-full md:w-3/4">
+                        <p class="text-2xl md:text-5xl font-serif leading-tight text-noir-ink reveal-scroll">
+                            Inspired by the chaotic symmetry of nature. We replace heavy layers with air, structure with flow. <br><br>
+                            <span class="text-lg md:text-2xl font-sans font-light text-gray-500 block mt-8 leading-relaxed">
+                                For the bride who is not afraid to bloom in the dark. Our dresses are grown, not made.
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="collection" class="py-20 px-4 md:px-12 bg-white">
-            <div class="flex justify-between items-end mb-20 border-b border-gray-200 pb-8 mx-4">
-                <h2 class="text-4xl md:text-6xl font-serif">The Collection</h2>
-                <span class="text-xs uppercase tracking-widest hidden md:block">12 Exclusives</span>
+        <section id="collection" class="py-10 md:py-20 bg-white">
+            <div class="px-6 md:px-12 mb-12 md:mb-24 flex justify-between items-end">
+                <h2 class="text-4xl md:text-7xl font-serif text-noir-ink">The Garden</h2>
+                <span class="hidden md:block text-xs uppercase tracking-widest text-gray-400">12 Unique Pieces</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-8">
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 md:gap-y-32 gap-x-8 px-4 md:px-8">
                 <template x-for="product in products" :key="product.id">
-                    <div class="group cursor-pointer hover-trigger" @click="activeProduct = product; modalOpen = true">
-                        <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6">
+                    <div class="group cursor-pointer hover-trigger flex flex-col" @click="activeProduct = product; modalOpen = true">
+                        <div class="relative w-full aspect-[3/4] overflow-hidden bg-[#F0F0F0] mb-6">
                             <img :src="product.img" :alt="product.name" 
-                                 class="w-full h-full object-cover filter grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105">
+                                 class="w-full h-full object-cover filter grayscale md:grayscale transition-all duration-1000 ease-out group-hover:grayscale-0 group-hover:scale-105"
+                                 loading="lazy">
                             
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
-                                <div class="w-24 h-24 rounded-full border border-white/30 flex items-center justify-center bg-white/10">
-                                    <span class="text-white text-[10px] uppercase tracking-widest">View</span>
-                                </div>
+                            <div class="md:hidden absolute bottom-4 right-4 bg-white/80 px-3 py-1 text-[10px] uppercase tracking-widest backdrop-blur-sm">
+                                View
                             </div>
                         </div>
 
-                        <div class="flex flex-col items-center text-center">
-                            <span class="text-[10px] text-gray-400 uppercase tracking-widest mb-2" x-text="`No. 0${product.id}`"></span>
-                            <h3 class="text-2xl font-serif group-hover:italic transition-all duration-300" x-text="product.name"></h3>
-                            <p class="text-xs text-gray-500 mt-2 font-mono" x-text="product.price"></p>
+                        <div class="flex justify-between items-start border-t border-gray-100 pt-4">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-serif group-hover:italic transition-all duration-300" x-text="product.name"></h3>
+                                <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-1" x-text="product.desc"></p>
+                            </div>
+                            <span class="text-sm font-serif italic" x-text="product.price"></span>
                         </div>
                     </div>
                 </template>
-
             </div>
         </section>
 
-        <section id="atelier" class="py-40 bg-noir-ink text-white relative overflow-hidden">
-            <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center bg-fixed"></div>
-            <div class="relative z-10 px-8 md:px-32 flex flex-col md:flex-row justify-between items-start gap-12">
-                <div class="md:w-1/2">
-                    <h2 class="text-5xl md:text-7xl font-serif mb-8">The Atelier</h2>
-                    <div class="h-[1px] w-24 bg-noir-accent mb-8"></div>
-                    <p class="text-gray-400 font-light leading-relaxed max-w-md">
-                        Every gown is constructed by hand in our Milanese atelier. We source fabrics from century-old mills in Como and Kyoto. A single dress requires over 200 hours of craftsmanship.
-                    </p>
-                </div>
-                <div class="md:w-1/2 flex flex-col gap-8">
-                    <div class="border-l border-white/20 pl-8">
-                        <h4 class="text-xl font-serif mb-2">Fittings</h4>
-                        <p class="text-sm text-gray-400">Private appointments only.</p>
-                    </div>
-                    <div class="border-l border-white/20 pl-8">
-                        <h4 class="text-xl font-serif mb-2">Alterations</h4>
-                        <p class="text-sm text-gray-400">Included for life.</p>
-                    </div>
-                </div>
+        <section id="atelier" class="py-32 md:py-60 bg-noir-ink text-white relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 opacity-40">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" 
+                     class="w-full h-full object-cover"
+                     data-speed="0.3"> </div>
+
+            <div class="relative z-10 text-center px-6">
+                <span class="block text-noir-accent text-xs uppercase tracking-widest mb-4">The Process</span>
+                <h2 class="text-5xl md:text-8xl font-serif mb-8">Hand-Sculpted</h2>
+                <p class="max-w-md mx-auto text-gray-300 font-light leading-relaxed mb-12">
+                    Imported Japanese silk. French lace. Constructed in our atelier in Almaty with obsessive attention to detail.
+                </p>
+                <a href="#booking" class="magnetic-btn inline-block border border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-500">
+                    Book Viewing
+                </a>
             </div>
         </section>
 
-        <section id="booking" class="py-32 px-6 md:px-20 bg-white relative">
+        <section id="booking" class="py-24 px-6 md:px-20 bg-noir-bg relative">
             <div class="max-w-2xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Your Appointment</h2>
-                    <p class="text-gray-500 font-light">Begin the journey. Select a date below.</p>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Private Fitting</h2>
+                    <p class="text-gray-500 font-light">Experience the collection in person.</p>
                 </div>
 
-                <form class="space-y-12" onsubmit="event.preventDefault(); alert('Request sent to the Atelier.');">
+                <form class="space-y-12 md:space-y-16" onsubmit="event.preventDefault(); alert('Request sent via WhatsApp.');">
                     <div class="group relative">
-                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 focus:border-noir-accent outline-none text-xl font-serif transition-colors hover-trigger placeholder-gray-300" placeholder=" ">
-                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent">Full Name</label>
+                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Name">
+                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Your Name</label>
                     </div>
 
-                    <div class="group relative">
-                        <input type="email" required class="w-full py-4 bg-transparent border-b border-gray-300 focus:border-noir-accent outline-none text-xl font-serif transition-colors hover-trigger placeholder-gray-300" placeholder=" ">
-                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent">Email Address</label>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
                         <div class="group relative">
-                            <input type="text" onfocus="(this.type='date')" class="w-full py-4 bg-transparent border-b border-gray-300 focus:border-noir-accent outline-none text-xl font-serif transition-colors hover-trigger placeholder-gray-300">
-                            <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent">Preferred Date</label>
+                            <input type="tel" class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Phone">
+                             <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Phone Number</label>
                         </div>
+                        
                         <div class="group relative">
-                            <select class="w-full py-4 bg-transparent border-b border-gray-300 focus:border-noir-accent outline-none text-xl font-serif transition-colors hover-trigger text-gray-600">
+                            <select class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger text-gray-700 appearance-none">
                                 <option value="" disabled selected>Select Boutique</option>
-                                <option>Paris, 1st Arr.</option>
-                                <option>New York, Soho</option>
-                                <option>Milan, Brera</option>
+                                <option>Almaty (Esentai)</option>
+                                <option>Astana (Talan)</option>
+                                <option>Shymkent (Rixos)</option>
                             </select>
+                            <div class="absolute right-0 top-6 pointer-events-none text-gray-400">↓</div>
                         </div>
                     </div>
 
-                    <div class="pt-8 text-center">
-                        <button type="submit" class="px-12 py-4 bg-noir-ink text-white font-serif text-lg tracking-wider hover:bg-noir-accent transition-colors duration-500 hover-trigger">
+                    <div class="pt-8 text-center w-full">
+                        <button type="submit" class="magnetic-btn w-full md:w-auto px-16 py-5 bg-noir-ink text-white font-serif text-lg tracking-wider hover:bg-noir-accent transition-colors duration-500 hover-trigger shadow-2xl">
                             Request Appointment
                         </button>
                     </div>
                 </form>
             </div>
-
-            <footer class="mt-32 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-gray-400">
-                <div>© 2026 L'Élégance Noire. All rights reserved.</div>
-                <div class="flex gap-6 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-black hover-trigger">Instagram</a>
-                    <a href="#" class="hover:text-black hover-trigger">Pinterest</a>
-                    <a href="#" class="hover:text-black hover-trigger">Legal</a>
-                </div>
-            </footer>
         </section>
+
+        <footer class="bg-noir-ink text-white pt-10 pb-20 md:pb-10 overflow-hidden">
+            <div class="w-full border-b border-white/10 pb-6 mb-8 overflow-hidden">
+                <div class="whitespace-nowrap animate-marquee flex gap-12 text-[10px] md:text-xs uppercase tracking-widest-art text-gray-400">
+                    <span>Almaty — Esentai Mall</span> <span class="text-noir-accent">•</span>
+                    <span>Astana — Talan Towers</span> <span class="text-noir-accent">•</span>
+                    <span>Shymkent — Rixos Khadisha</span> <span class="text-noir-accent">•</span>
+                    <span>Organic Couture</span> <span class="text-noir-accent">•</span>
+                    <span>Almaty — Esentai Mall</span> <span class="text-noir-accent">•</span>
+                    <span>Astana — Talan Towers</span> <span class="text-noir-accent">•</span>
+                </div>
+            </div>
+
+            <div class="px-8 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-gray-500 gap-4">
+                <div>© 2026 L'Élégance Noire.</div>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-white transition-colors">WhatsApp</a>
+                </div>
+            </div>
+        </footer>
 
     </main>
 
     <div x-show="modalOpen" 
          style="display: none;"
          x-transition:enter="transition ease-out duration-500"
-         x-transition:enter-start="opacity-0 translate-y-10"
-         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:enter-start="opacity-0 translate-y-20 scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-300"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 translate-y-10"
-         class="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+         x-transition:leave-end="opacity-0 translate-y-20 scale-95"
+         class="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-8">
         
-        <div class="absolute inset-0 bg-white/90 backdrop-blur-md" @click="modalOpen = false"></div>
+        <div class="absolute inset-0 bg-[#FDFBF7]/95 backdrop-blur-xl" @click="modalOpen = false"></div>
 
-        <div class="relative w-full max-w-6xl h-[90vh] bg-white shadow-2xl overflow-hidden flex flex-col md:flex-row">
-            
-            <button @click="modalOpen = false" class="absolute top-6 right-6 z-20 w-10 h-10 flex items-center justify-center bg-white rounded-full hover:bg-noir-accent hover:text-white transition-colors hover-trigger">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <div class="relative w-full h-full md:max-w-6xl md:h-[90vh] bg-white shadow-2xl overflow-hidden flex flex-col md:flex-row md:border md:border-gray-100">
+            <button @click="modalOpen = false" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/80 rounded-full hover:bg-noir-accent hover:text-white transition-colors hover-trigger backdrop-blur shadow-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
 
-            <div class="w-full md:w-1/2 h-1/2 md:h-full bg-gray-100 relative overflow-hidden group">
-                <img :src="activeProduct?.img" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                <div class="absolute bottom-6 left-6 text-white text-xs uppercase tracking-widest">Hover to Zoom</div>
+            <div class="w-full h-[40vh] md:w-1/2 md:h-full bg-gray-100 relative overflow-hidden">
+                <img :src="activeProduct?.img" class="w-full h-full object-cover">
             </div>
 
-            <div class="w-full md:w-1/2 h-1/2 md:h-full p-10 md:p-20 flex flex-col justify-center overflow-y-auto">
-                <span class="text-noir-accent text-xs uppercase tracking-widest font-bold mb-4">Exclusive</span>
-                <h2 class="text-5xl md:text-6xl font-serif mb-6" x-text="activeProduct?.name"></h2>
-                <p class="text-2xl text-gray-900 font-light mb-8" x-text="activeProduct?.price"></p>
-                <div class="w-12 h-[1px] bg-gray-200 mb-8"></div>
-                <p class="text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc + ' Constructed with precision and tailored to perfection. This piece represents the pinnacle of modern avant-garde bridal fashion.'"></p>
+            <div class="w-full h-[60vh] md:w-1/2 md:h-full p-8 md:p-20 flex flex-col justify-start md:justify-center overflow-y-auto bg-white">
+                <span class="text-noir-accent text-[10px] uppercase tracking-widest font-bold mb-4">Collection Piece</span>
+                <h2 class="text-4xl md:text-6xl font-serif mb-4 text-noir-ink" x-text="activeProduct?.name"></h2>
+                <p class="text-xl md:text-2xl text-gray-800 font-light mb-8" x-text="activeProduct?.price"></p>
                 
-                <button class="w-full py-4 border border-black hover:bg-black hover:text-white transition-all duration-300 uppercase text-xs tracking-widest hover-trigger">
-                    Add to Fitting List
-                </button>
+                <div class="w-12 h-[1px] bg-gray-200 mb-8"></div>
+                
+                <p class="text-sm md:text-base text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc + ' Handcrafted using sustainable organic fibers. Available for private fitting only.'"></p>
+                
+                <a href="https://wa.me/77000000000" target="_blank" class="w-full py-4 border border-noir-ink text-center hover:bg-noir-ink hover:text-white transition-all duration-300 uppercase text-xs tracking-widest hover-trigger">
+                    Reserve via WhatsApp
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. PRELOADER LOGIC
+        // 1. PRELOADER & INTRO
         window.addEventListener('load', () => {
             const counter = document.getElementById('loader-counter');
+            const bar = document.getElementById('loader-bar');
             let count = 0;
+            
             const interval = setInterval(() => {
-                count += Math.floor(Math.random() * 5) + 1;
+                count += Math.floor(Math.random() * 5) + 2;
                 if (count > 100) count = 100;
+                
                 counter.innerText = count;
+                bar.style.width = count + '%';
                 
                 if (count === 100) {
                     clearInterval(interval);
-                    gsap.to('#preloader', {
+                    
+                    const tl = gsap.timeline();
+                    
+                    // Exit Preloader
+                    tl.to('#preloader', {
                         yPercent: -100,
-                        duration: 1.5,
+                        duration: 1.2,
                         ease: 'power4.inOut',
-                        delay: 0.5,
-                        onComplete: initAnimations
-                    });
+                        delay: 0.2
+                    })
+                    // Hero Text Reveal (Staggered)
+                    .to('.reveal-text-y', {
+                        y: '0%',
+                        duration: 1.5,
+                        stagger: 0.2,
+                        ease: 'power3.out'
+                    }, "-=0.5")
+                    .to('.reveal-text', {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: 'power2.out'
+                    }, "-=1");
                 }
             }, 30);
         });
 
-        // 2. SMOOTH SCROLL (LENIS)
+        // 2. SMOOTH SCROLL (Lenis)
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
-            gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
             touchMultiplier: 2,
         });
 
@@ -414,83 +439,74 @@
         }
         requestAnimationFrame(raf);
 
-        // 3. CUSTOM CURSOR LOGIC
+        // 3. CURSOR LOGIC (Desktop Only)
         const cursorDot = document.getElementById('cursor-dot');
         const cursorCircle = document.getElementById('cursor-circle');
         
-        // Mouse Move
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+        // Только если устройство поддерживает hover (мышь)
+        if (window.matchMedia("(hover: hover)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
 
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Circle follows with lag (GSAP)
-            gsap.to(cursorCircle, {
-                x: posX - 20, // offset center (width/2)
-                y: posY - 20,
-                duration: 0.5,
-                ease: 'power2.out'
-            });
-        });
-
-        // Hover Effect on interactive elements
-        const hoverElements = document.querySelectorAll('.hover-trigger');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
-
-        // 4. GSAP SCROLL ANIMATIONS
-        gsap.registerPlugin(ScrollTrigger);
-
-        function initAnimations() {
-            // Hero Text Reveal
-            gsap.to('.reveal-text', {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                stagger: 0.2,
-                ease: 'power3.out'
-            });
-
-            // Scroll Down Animation
-            gsap.to('.animate-scrolldown', {
-                y: '100%',
-                duration: 1.5,
-                repeat: -1,
-                ease: 'power2.inOut'
-            });
-
-            // Parallax for Text
-            gsap.from('.reveal-scroll', {
-                scrollTrigger: {
-                    trigger: '.reveal-scroll',
-                    start: 'top 80%',
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out'
-            });
-            
-            // Image Parallax (Simple)
-            gsap.utils.toArray('img').forEach(img => {
-                gsap.to(img, {
-                    scrollTrigger: {
-                        trigger: img,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1
-                    },
-                    y: -20,
-                    ease: "none"
+                gsap.to(cursorCircle, {
+                    x: posX - 20,
+                    y: posY - 20,
+                    duration: 0.6,
+                    ease: 'power3.out'
                 });
+            });
+
+            // Magnetic Buttons
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.5, y: y * 0.5, duration: 0.3 });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.3 });
+                });
+            });
+
+            // Hover States
+            document.querySelectorAll('.hover-trigger').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
         }
 
+        // 4. SCROLL ANIMATIONS
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Text Scroll Reveal
+        gsap.utils.toArray('.reveal-scroll').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: 'top 85%' },
+                y: 50,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out'
+            });
+        });
+
+        // Parallax Images
+        gsap.utils.toArray('img[data-speed]').forEach(img => {
+            gsap.to(img, {
+                yPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
     </script>
 </body>
 </html>
