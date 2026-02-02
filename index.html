@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>L'ÉLÉGANCE NOIRE | Свадебный Кутюр Казахстан</title>
-    <meta name="description" content="Премиальные свадебные платья. Алматы. Астана. Шымкент.">
+    <title>AIKERIM BRIDAL | Свадебный Салон Казахстан</title>
+    <meta name="description" content="Роскошные свадебные платья. Алматы. Астана. Шымкент.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,24 +16,25 @@
             theme: {
                 extend: {
                     screens: {
-                        'xs': '375px', // Mobile S
-                        '3xl': '1920px', // Large Desktop
+                        'xs': '375px',
+                        '3xl': '1920px',
                     },
                     colors: {
-                        'noir-bg': '#FDFBF7', // Теплый дорогой офф-вайт
-                        'noir-ink': '#080808', // Глубокий черный
-                        'noir-accent': '#C91A25', // Благородный красный
-                        'noir-gray': '#E5E5E5',
+                        'brand-bg': '#FFFCF8', // Молочный оттенок (дороже чем белый)
+                        'brand-ink': '#0A0A0A', // Премиум черный
+                        'brand-accent': '#800020', // Бургунди (винный) - цвет роскоши
+                        'brand-gold': '#D4AF37', // Приглушенное золото для тонких линий
                     },
                     fontFamily: {
                         serif: ['"Cormorant Garamond"', 'serif'],
                         sans: ['"Inter"', 'sans-serif'],
                     },
                     letterSpacing: {
-                        'widest-art': '0.3em',
+                        'widest-art': '0.35em',
                     },
                     animation: {
-                        'marquee': 'marquee 40s linear infinite',
+                        'marquee': 'marquee 45s linear infinite',
+                        'spin-slow': 'spin 12s linear infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -49,21 +50,20 @@
     <style>
         /* Base Setup */
         body {
-            background-color: #FDFBF7;
-            color: #080808;
+            background-color: #FFFCF8;
+            color: #0A0A0A;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Noise Overlay (Film Grain Effect for Texture) */
+        /* Luxury Noise Overlay */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9000; opacity: 0.025;
+            pointer-events: none; z-index: 9000; opacity: 0.03;
             background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        /* --- DESKTOP CURSOR (Hidden on Mobile) --- */
+        /* --- DESKTOP CURSOR --- */
         @media (hover: hover) and (pointer: fine) {
             body { cursor: none; }
             #cursor-dot, #cursor-circle { display: block; }
@@ -77,32 +77,36 @@
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
             border-radius: 50%; transform: translate(-50%, -50%);
         }
-        #cursor-dot { width: 6px; height: 6px; background-color: #080808; }
+        #cursor-dot { width: 6px; height: 6px; background-color: #800020; }
         #cursor-circle {
-            width: 40px; height: 40px; border: 0.5px solid rgba(8, 8, 8, 0.4);
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        background-color 0.3s;
+            width: 40px; height: 40px; border: 0.5px solid rgba(128, 0, 32, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         body.hovering #cursor-circle {
-            width: 90px; height: 90px;
-            background-color: rgba(201, 26, 37, 0.05); /* Red Tint */
-            border-color: #C91A25;
-            mix-blend-mode: multiply;
+            width: 80px; height: 80px;
+            background-color: rgba(128, 0, 32, 0.05);
+            border-color: #800020;
         }
 
         /* --- UTILITIES --- */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         
-        /* Preloader */
         #preloader {
-            position: fixed; inset: 0; background: #080808; color: #fff;
+            position: fixed; inset: 0; background: #0A0A0A; color: #fff;
             z-index: 10001; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
-        /* Text Reveal Mask */
         .line-mask { overflow: hidden; }
         .reveal-text-y { transform: translateY(100%); }
+        
+        /* Progress Bar */
+        .progress-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px; z-index: 9999;
+            background: transparent;
+        }
+        .progress-bar {
+            height: 100%; background: #800020; width: 0%;
+        }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -116,20 +120,21 @@
     modalOpen: false,
     activeProduct: null,
     products: [
-        { id: 1, name: 'White Petal', price: '4 200 000 ₸', desc: 'Шелковая органза. Ручная вышивка лепестками.', img: 'images/image1.jpg' },
-        { id: 2, name: 'Dark Stem', price: '5 600 000 ₸', desc: 'Структурированный корсет. Бархатные акценты.', img: 'images/image2.jpg' },
-        { id: 3, name: 'Morning Dew', price: '3 800 000 ₸', desc: 'Наложение кристаллической сетки.', img: 'images/image3.jpg' },
-        { id: 4, name: 'The Thorn', price: '4 500 000 ₸', desc: 'Острый силуэт. Минималистичный креп.', img: 'images/image4.jpg' },
-        { id: 5, name: 'Bloom V', price: '6 100 000 ₸', desc: 'Объемные рукава-бутоны.', img: 'images/image5.jpg' },
-        { id: 6, name: 'Root & Earth', price: '4 900 000 ₸', desc: 'Необработанный край. Смесь льна.', img: 'images/image6.jpg' },
-        { id: 7, name: 'Night Shade', price: '5 200 000 ₸', desc: 'Аппликация из черного кружева.', img: 'images/image7.jpg' },
-        { id: 8, name: 'Gardenia', price: '7 000 000 ₸', desc: 'Сатиновый финиш. Цветочная драпировка.', img: 'images/image8.jpg' },
-        { id: 9, name: 'Wild Rose', price: '3 900 000 ₸', desc: 'Асимметричные воланы.', img: 'images/image9.jpg' },
-        { id: 10, name: 'Glass Lily', price: '8 500 000 ₸', desc: 'Прозрачный корсет. Эффект стекла.', img: 'images/image10.jpg' },
-        { id: 11, name: 'Orchid', price: '4 100 000 ₸', desc: 'Архитектурные складки.', img: 'images/image11.jpg' },
-        { id: 12, name: 'Eternal Flora', price: '9 200 000 ₸', desc: 'Лимитированная коллекция. Чистое кружево.', img: 'images/image12.jpg' }
+        { id: 1, name: 'Imperia', price: '4 200 000 ₸', desc: 'Королевский сатин. Шлейф 2 метра.', img: 'images/image1.jpg' },
+        { id: 2, name: 'Velvet Rose', price: '5 600 000 ₸', desc: 'Корсетная работа. Бархатная отделка.', img: 'images/image2.jpg' },
+        { id: 3, name: 'Crystal Rain', price: '3 800 000 ₸', desc: 'Ручная расшивка Swarovski.', img: 'images/image3.jpg' },
+        { id: 4, name: 'Modern Grace', price: '4 500 000 ₸', desc: 'Минимализм. Итальянский креп.', img: 'images/image4.jpg' },
+        { id: 5, name: 'White Gold', price: '6 100 000 ₸', desc: 'Золотая нить в кружеве шантильи.', img: 'images/image5.jpg' },
+        { id: 6, name: 'Steppe Wind', price: '4 900 000 ₸', desc: 'Летящий шелк. Воздушный крой.', img: 'images/image6.jpg' },
+        { id: 7, name: 'Noir Accent', price: '5 200 000 ₸', desc: 'Контрастный пояс. Авангард.', img: 'images/image7.jpg' },
+        { id: 8, name: 'Queen\'s Choice', price: '7 000 000 ₸', desc: 'Пышная юбка. Закрытый верх.', img: 'images/image8.jpg' },
+        { id: 9, name: 'Aikerim Exclusive', price: '9 900 000 ₸', desc: 'Единственный экземпляр.', img: 'images/image9.jpg' }
     ]
 }">
+
+    <div class="progress-container">
+        <div id="scroll-progress" class="progress-bar"></div>
+    </div>
 
     <div class="noise-overlay"></div>
     
@@ -137,43 +142,43 @@
     <div id="cursor-circle"></div>
 
     <a href="https://wa.me/77000000000" target="_blank" 
-       class="magnetic-btn fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[80] w-14 h-14 md:w-16 md:h-16 bg-white/90 backdrop-blur border border-gray-200 rounded-full flex items-center justify-center text-noir-ink hover:bg-noir-ink hover:text-white transition-all duration-500 shadow-2xl hover-trigger hover:scale-110">
+       class="magnetic-btn fixed bottom-6 right-6 md:bottom-12 md:right-12 z-[80] w-14 h-14 md:w-16 md:h-16 bg-brand-ink rounded-full flex items-center justify-center text-white hover:bg-brand-accent transition-all duration-500 shadow-2xl hover-trigger hover:scale-110 group">
+        <div class="absolute inset-0 rounded-full border border-brand-accent/50 animate-ping opacity-20"></div>
         <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
     </a>
 
     <div id="preloader">
         <div class="text-center relative">
-            <div id="loader-counter" class="text-6xl md:text-9xl font-serif font-light text-white">0</div>
+            <div id="loader-counter" class="text-6xl md:text-9xl font-serif font-light text-brand-bg">0</div>
             <div class="h-[1px] w-full bg-white/20 mt-4 relative overflow-hidden">
-                <div id="loader-bar" class="absolute top-0 left-0 h-full bg-noir-accent w-0"></div>
+                <div id="loader-bar" class="absolute top-0 left-0 h-full bg-brand-accent w-0"></div>
             </div>
-            <div class="text-[10px] uppercase tracking-[0.4em] mt-4 opacity-50 font-sans">Загрузка Ателье</div>
+            <div class="text-[10px] uppercase tracking-[0.4em] mt-4 opacity-50 font-sans text-white">AIKERIM BRIDAL</div>
         </div>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference text-white flex justify-between items-start">
-        <a href="#" class="text-xl md:text-2xl font-serif tracking-widest relative group hover-trigger magnetic-btn">
-            L'ÉLÉGANCE<span class="text-noir-accent">.</span>
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference text-white flex justify-between items-start transition-all duration-300">
+        <a href="#" class="text-lg md:text-xl font-serif tracking-[0.2em] relative group hover-trigger magnetic-btn font-bold">
+            AIKERIM<span class="text-brand-accent">.</span> BRIDAL
         </a>
 
         <button @click="menuOpen = !menuOpen" class="magnetic-btn flex flex-col gap-[6px] hover-trigger group w-10 md:w-12 items-end p-2">
-            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? 'rotate-45 translate-y-[7px] bg-noir-accent' : ''"></span>
+            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? 'rotate-45 translate-y-[7px] bg-brand-accent' : ''"></span>
             <span class="h-[1px] bg-white w-2/3 transition-opacity duration-300" :class="menuOpen ? 'opacity-0' : ''"></span>
-            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? '-rotate-45 -translate-y-[7px] bg-noir-accent' : ''"></span>
+            <span class="h-[1px] bg-white w-full transition-transform duration-300 origin-center" :class="menuOpen ? '-rotate-45 -translate-y-[7px] bg-brand-accent' : ''"></span>
         </button>
     </nav>
 
-    <div class="fixed inset-0 bg-[#FDFBF7] z-40 transform transition-transform duration-[0.8s] ease-[0.76, 0, 0.24, 1]"
+    <div class="fixed inset-0 bg-[#FFFCF8] z-40 transform transition-transform duration-[0.8s] ease-[0.76, 0, 0.24, 1]"
          :class="menuOpen ? 'translate-y-0' : '-translate-y-full'">
-        <div class="h-full flex flex-col justify-center items-center text-noir-ink p-4">
-            <ul class="text-center space-y-4 md:space-y-8">
-                <li><a href="#collection" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Коллекция</a></li>
-                <li><a href="#atelier" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Философия</a></li>
-                <li><a href="#booking" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-noir-accent transition-all hover-trigger">Запись</a></li>
+        <div class="h-full flex flex-col justify-center items-center text-brand-ink p-4 relative">
+            <div class="absolute w-[600px] h-[600px] border border-brand-accent/5 rounded-full animate-spin-slow pointer-events-none"></div>
+            
+            <ul class="text-center space-y-4 md:space-y-8 relative z-10">
+                <li><a href="#collection" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-brand-accent transition-all hover-trigger">Коллекция</a></li>
+                <li><a href="#atelier" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-brand-accent transition-all hover-trigger">Философия</a></li>
+                <li><a href="#booking" @click="menuOpen = false" class="block text-4xl md:text-8xl font-serif font-light hover:italic hover:text-brand-accent transition-all hover-trigger">Примерка</a></li>
             </ul>
-            <div class="mt-12 md:mt-24 text-xs uppercase tracking-widest text-gray-400">
-                Алматы • Астана • Шымкент
-            </div>
         </div>
     </div>
 
@@ -188,7 +193,7 @@
             
             <div class="relative z-10 text-center mix-blend-difference text-white px-4 w-full">
                 <h2 class="text-[10px] md:text-xs uppercase tracking-widest-art mb-8 opacity-0 reveal-text">
-                    Свадебное Ателье • Казахстан
+                    Est. 2026 • Kazakhstan
                 </h2>
                 <div class="line-mask overflow-hidden mb-2">
                     <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] reveal-text-y">
@@ -197,37 +202,29 @@
                 </div>
                 <div class="line-mask overflow-hidden">
                     <h1 class="text-5xl md:text-[9rem] font-serif font-light leading-[0.9] italic reveal-text-y delay-100">
-                        КУТЮР
+                        СТИЛЬ
                     </h1>
                 </div>
                 
                 <div class="mt-16 opacity-0 reveal-text">
-                    <a href="#collection" class="magnetic-btn inline-block border-b border-white pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:text-noir-accent hover:border-noir-accent transition-colors duration-500 hover-trigger">
-                        Смотреть Коллекцию
+                    <a href="#collection" class="magnetic-btn inline-block border-b border-white pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:text-brand-accent hover:border-brand-accent transition-colors duration-500 hover-trigger">
+                        Смотреть Платья
                     </a>
-                </div>
-            </div>
-
-            <div class="absolute bottom-10 left-0 w-full flex justify-center mix-blend-difference text-white opacity-0 reveal-text">
-                <div class="w-[1px] h-16 bg-white/30 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 md:py-40 px-6 md:px-20 bg-noir-bg relative">
+        <section class="py-24 md:py-40 px-6 md:px-20 bg-brand-bg relative">
             <div class="max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row gap-8 md:gap-20 items-start">
                     <div class="w-full md:w-1/4">
-                        <span class="text-[10px] text-noir-accent uppercase tracking-widest font-bold block mb-4 border-t border-noir-accent pt-4 w-24">Философия Бренда</span>
+                        <span class="text-[10px] text-brand-accent uppercase tracking-widest font-bold block mb-4 border-t border-brand-accent pt-4 w-24">О Бренде</span>
                     </div>
                     <div class="w-full md:w-3/4">
-                        <p class="text-2xl md:text-4xl font-serif leading-tight text-noir-ink reveal-scroll">
-                            Мы создаем не просто платья. Мы ваяем эмоции для современной невесты, которая ценит интеллектуальную роскошь.
+                        <p class="text-2xl md:text-4xl font-serif leading-tight text-brand-ink reveal-scroll">
+                            <span class="font-bold">Aikerim Bridal</span> — это пространство, где свадебная мода встречается с искусством.
                             <br><br>
-                            <span class="text-lg md:text-xl font-sans font-light text-gray-500 block mt-8 leading-relaxed">
-                                Отвергая тяжеловесность традиций, мы выбираем воздух и архитектурные линии. Это ода женщине, которая не боится своей уникальности. Наши платья не шьются — они рождаются.
-                            </span>
+                            Мы верим, что платье должно быть продолжением личности. Интеллектуальный крой, отсутствие лишнего декора и безупречная посадка. Для невест, которые выбирают быть собой.
                         </p>
                     </div>
                 </div>
@@ -235,79 +232,79 @@
         </section>
 
         <section id="collection" class="py-10 md:py-20 bg-white">
-            <div class="px-6 md:px-12 mb-12 md:mb-24 flex justify-between items-end">
-                <h2 class="text-4xl md:text-7xl font-serif text-noir-ink">Коллекция</h2>
-                <span class="hidden md:block text-xs uppercase tracking-widest text-gray-400">12 Эксклюзивных Образов</span>
+            <div class="px-6 md:px-12 mb-12 md:mb-24 flex justify-between items-end border-b border-gray-100 pb-6">
+                <h2 class="text-4xl md:text-7xl font-serif text-brand-ink">Коллекция</h2>
+                <span class="hidden md:block text-xs uppercase tracking-widest text-gray-400">9 Эксклюзивных Образов</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 md:gap-y-32 gap-x-8 px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 md:gap-y-24 gap-x-8 px-4 md:px-8">
                 <template x-for="product in products" :key="product.id">
                     <div class="group cursor-pointer hover-trigger flex flex-col" @click="activeProduct = product; modalOpen = true">
                         <div class="relative w-full aspect-[3/4] overflow-hidden bg-[#F0F0F0] mb-6">
                             <img :src="product.img" :alt="product.name" 
                                  class="w-full h-full object-cover filter grayscale md:grayscale transition-all duration-1000 ease-out group-hover:grayscale-0 group-hover:scale-105"
                                  loading="lazy">
-                            
-                            <div class="md:hidden absolute bottom-4 right-4 bg-white/80 px-3 py-1 text-[10px] uppercase tracking-widest backdrop-blur-sm">
+                            <div class="md:hidden absolute bottom-4 right-4 bg-white/90 px-3 py-1 text-[10px] uppercase tracking-widest">
                                 Обзор
                             </div>
                         </div>
 
-                        <div class="flex justify-between items-start border-t border-gray-100 pt-4">
+                        <div class="flex justify-between items-start pt-2">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-serif group-hover:italic transition-all duration-300" x-text="product.name"></h3>
+                                <h3 class="text-xl md:text-2xl font-serif group-hover:text-brand-accent transition-all duration-300" x-text="product.name"></h3>
                                 <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-1" x-text="product.desc"></p>
                             </div>
-                            <span class="text-sm font-serif italic" x-text="product.price"></span>
                         </div>
                     </div>
                 </template>
             </div>
         </section>
 
-        <section id="atelier" class="py-32 md:py-60 bg-noir-ink text-white relative overflow-hidden flex items-center justify-center">
-            <div class="absolute inset-0 opacity-40">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" 
+        <section id="atelier" class="py-32 md:py-60 bg-black text-white relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 opacity-60">
+                <img src="https://images.unsplash.com/photo-1594815456381-42202df2f75a?q=80&w=2070&auto=format&fit=crop" 
                      class="w-full h-full object-cover"
-                     data-speed="0.3">
+                     alt="Dark Silk Texture"
+                     data-speed="0.2">
             </div>
 
-            <div class="relative z-10 text-center px-6">
-                <span class="block text-noir-accent text-xs uppercase tracking-widest mb-4">Процесс</span>
+            <div class="relative z-10 text-center px-6 max-w-2xl">
+                <div class="w-1 h-16 bg-brand-accent mx-auto mb-8"></div>
                 <h2 class="text-5xl md:text-8xl font-serif mb-8">Ручная Работа</h2>
-                <p class="max-w-md mx-auto text-gray-300 font-light leading-relaxed mb-12">
-                    Итальянский шелк. Французское кружево. Каждое платье создается в нашем ателье с одержимым вниманием к деталям.
+                <p class="text-gray-300 font-light leading-relaxed mb-12 text-lg">
+                    Каждая складка, каждый шов выполняются вручную нашими мастерами. Мы используем только натуральный шелк и французское кружево шантильи.
                 </p>
-                <a href="#booking" class="magnetic-btn inline-block border border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-500">
-                    Записаться на Примерку
-                </a>
+                <div class="grid grid-cols-2 gap-8 text-xs uppercase tracking-widest text-brand-accent">
+                    <div>• 200 Часов работы</div>
+                    <div>• Итальянские ткани</div>
+                </div>
             </div>
         </section>
 
-        <section id="booking" class="py-24 px-6 md:px-20 bg-noir-bg relative">
+        <section id="booking" class="py-24 px-6 md:px-20 bg-brand-bg relative">
             <div class="max-w-2xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Приватная Примерка</h2>
-                    <p class="text-gray-500 font-light">Познакомьтесь с коллекцией лично.</p>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-4 text-brand-ink">Запись на Примерку</h2>
+                    <p class="text-gray-500 font-light">Выберите удобный бутик Aikerim.</p>
                 </div>
 
-                <form class="space-y-12 md:space-y-16" onsubmit="event.preventDefault(); alert('Заявка отправлена. Мы свяжемся с вами в WhatsApp.');">
+                <form class="space-y-12 md:space-y-16" onsubmit="event.preventDefault(); alert('Спасибо! Менеджер свяжется с вами в WhatsApp.');">
                     <div class="group relative">
-                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Имя">
-                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Ваше Имя</label>
+                        <input type="text" required class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-brand-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Имя">
+                        <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-brand-accent group-focus-within:uppercase group-focus-within:tracking-widest">Ваше Имя</label>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
                         <div class="group relative">
-                            <input type="tel" class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Телефон">
-                             <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-noir-accent group-focus-within:uppercase group-focus-within:tracking-widest">Телефон</label>
+                            <input type="tel" class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-brand-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger placeholder-transparent" placeholder="Телефон">
+                             <label class="absolute left-0 top-4 text-gray-400 pointer-events-none transition-all duration-300 group-focus-within:-translate-y-6 group-focus-within:text-xs group-focus-within:text-brand-accent group-focus-within:uppercase group-focus-within:tracking-widest">Телефон</label>
                         </div>
                         
                         <div class="group relative">
-                            <select class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-noir-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger text-gray-700 appearance-none">
-                                <option value="" disabled selected>Выберите Бутик</option>
-                                <option>Алматы (Esentai Mall)</option>
-                                <option>Астана (Talan Towers)</option>
+                            <select class="w-full py-4 bg-transparent border-b border-gray-300 rounded-none focus:border-brand-accent outline-none text-lg md:text-xl font-serif transition-colors hover-trigger text-gray-700 appearance-none">
+                                <option value="" disabled selected>Город</option>
+                                <option>Алматы (Esentai)</option>
+                                <option>Астана (Talan)</option>
                                 <option>Шымкент (Rixos)</option>
                             </select>
                             <div class="absolute right-0 top-6 pointer-events-none text-gray-400">↓</div>
@@ -315,28 +312,39 @@
                     </div>
 
                     <div class="pt-8 text-center w-full">
-                        <button type="submit" class="magnetic-btn w-full md:w-auto px-16 py-5 bg-noir-ink text-white font-serif text-lg tracking-wider hover:bg-noir-accent transition-colors duration-500 hover-trigger shadow-2xl">
-                            Отправить Заявку
+                        <button type="submit" class="magnetic-btn w-full md:w-auto px-16 py-5 bg-brand-ink text-white font-serif text-lg tracking-wider hover:bg-brand-accent transition-colors duration-500 hover-trigger shadow-xl">
+                            Подтвердить Запись
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <footer class="bg-noir-ink text-white pt-10 pb-20 md:pb-10 overflow-hidden">
+        <footer class="bg-brand-ink text-white pt-10 pb-20 md:pb-10 overflow-hidden relative">
+            
+            <div class="absolute top-0 right-10 -translate-y-1/2 hidden md:flex items-center justify-center w-32 h-32 bg-brand-accent rounded-full animate-spin-slow shadow-lg z-10 border border-white/20">
+                <svg viewBox="0 0 100 100" width="100" height="100">
+                  <path id="curve" fill="transparent" d="M 10, 50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"/>
+                  <text width="100">
+                    <textPath xlink:href="#curve" class="text-[10px] uppercase tracking-widest fill-white">
+                      Premium Quality • Handmade •
+                    </textPath>
+                  </text>
+                </svg>
+            </div>
+
             <div class="w-full border-b border-white/10 pb-6 mb-8 overflow-hidden">
                 <div class="whitespace-nowrap animate-marquee flex gap-12 text-[10px] md:text-xs uppercase tracking-widest-art text-gray-400">
-                    <span>Алматы — Esentai Mall</span> <span class="text-noir-accent">•</span>
-                    <span>Астана — Talan Towers</span> <span class="text-noir-accent">•</span>
-                    <span>Шымкент — Rixos Khadisha</span> <span class="text-noir-accent">•</span>
-                    <span>Высокий Кутюр</span> <span class="text-noir-accent">•</span>
-                    <span>Алматы — Esentai Mall</span> <span class="text-noir-accent">•</span>
-                    <span>Запишитесь на примерку</span> <span class="text-noir-accent">•</span>
+                    <span>Aikerim Bridal</span> <span class="text-brand-accent">•</span>
+                    <span>Алматы</span> <span class="text-brand-accent">•</span>
+                    <span>Астана</span> <span class="text-brand-accent">•</span>
+                    <span>Шымкент</span> <span class="text-brand-accent">•</span>
+                    <span>Свадебный Кутюр</span> <span class="text-brand-accent">•</span>
                 </div>
             </div>
 
             <div class="px-8 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-gray-500 gap-4">
-                <div>© 2026 L'Élégance Noire. Все права защищены.</div>
+                <div>© 2026 Aikerim Bridal.</div>
                 <div class="flex gap-8">
                     <a href="#" class="hover:text-white transition-colors">Instagram</a>
                     <a href="#" class="hover:text-white transition-colors">WhatsApp</a>
@@ -356,10 +364,10 @@
          x-transition:leave-end="opacity-0 translate-y-20 scale-95"
          class="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-8">
         
-        <div class="absolute inset-0 bg-[#FDFBF7]/95 backdrop-blur-xl" @click="modalOpen = false"></div>
+        <div class="absolute inset-0 bg-[#FFFCF8]/95 backdrop-blur-xl" @click="modalOpen = false"></div>
 
         <div class="relative w-full h-full md:max-w-6xl md:h-[90vh] bg-white shadow-2xl overflow-hidden flex flex-col md:flex-row md:border md:border-gray-100">
-            <button @click="modalOpen = false" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/80 rounded-full hover:bg-noir-accent hover:text-white transition-colors hover-trigger backdrop-blur shadow-lg">
+            <button @click="modalOpen = false" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/80 rounded-full hover:bg-brand-accent hover:text-white transition-colors hover-trigger backdrop-blur shadow-lg">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
 
@@ -368,145 +376,86 @@
             </div>
 
             <div class="w-full h-[60vh] md:w-1/2 md:h-full p-8 md:p-20 flex flex-col justify-start md:justify-center overflow-y-auto bg-white">
-                <span class="text-noir-accent text-[10px] uppercase tracking-widest font-bold mb-4">Эксклюзив</span>
-                <h2 class="text-4xl md:text-6xl font-serif mb-4 text-noir-ink" x-text="activeProduct?.name"></h2>
+                <span class="text-brand-accent text-[10px] uppercase tracking-widest font-bold mb-4">Aikerim Exclusive</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-4 text-brand-ink" x-text="activeProduct?.name"></h2>
                 <p class="text-xl md:text-2xl text-gray-800 font-light mb-8" x-text="activeProduct?.price"></p>
-                
                 <div class="w-12 h-[1px] bg-gray-200 mb-8"></div>
-                
-                <p class="text-sm md:text-base text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc + ' Ручная работа. Доступно только для приватной примерки.'"></p>
-                
-                <a href="https://wa.me/77000000000" target="_blank" class="w-full py-4 border border-noir-ink text-center hover:bg-noir-ink hover:text-white transition-all duration-300 uppercase text-xs tracking-widest hover-trigger">
-                    Забронировать в WhatsApp
+                <p class="text-sm md:text-base text-gray-500 leading-loose font-light mb-12" x-text="activeProduct?.desc"></p>
+                <a href="https://wa.me/77000000000" target="_blank" class="w-full py-4 border border-brand-ink text-center hover:bg-brand-ink hover:text-white transition-all duration-300 uppercase text-xs tracking-widest hover-trigger">
+                    Забронировать
                 </a>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. PRELOADER & INTRO
+        // 1. PRELOADER
         window.addEventListener('load', () => {
             const counter = document.getElementById('loader-counter');
             const bar = document.getElementById('loader-bar');
             let count = 0;
-            
             const interval = setInterval(() => {
                 count += Math.floor(Math.random() * 5) + 2;
                 if (count > 100) count = 100;
-                
                 counter.innerText = count;
                 bar.style.width = count + '%';
-                
                 if (count === 100) {
                     clearInterval(interval);
-                    
                     const tl = gsap.timeline();
-                    
-                    // Exit Preloader
-                    tl.to('#preloader', {
-                        yPercent: -100,
-                        duration: 1.2,
-                        ease: 'power4.inOut',
-                        delay: 0.2
-                    })
-                    // Hero Text Reveal (Staggered)
-                    .to('.reveal-text-y', {
-                        y: '0%',
-                        duration: 1.5,
-                        stagger: 0.2,
-                        ease: 'power3.out'
-                    }, "-=0.5")
-                    .to('.reveal-text', {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        ease: 'power2.out'
-                    }, "-=1");
+                    tl.to('#preloader', { yPercent: -100, duration: 1.2, ease: 'power4.inOut', delay: 0.2 })
+                      .to('.reveal-text-y', { y: '0%', duration: 1.5, stagger: 0.2, ease: 'power3.out' }, "-=0.5")
+                      .to('.reveal-text', { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, "-=1");
                 }
             }, 30);
         });
 
-        // 2. SMOOTH SCROLL (Lenis)
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            smooth: true,
-            touchMultiplier: 2,
+        // 2. SCROLL PROGRESS
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to('#scroll-progress', {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: document.body,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 0
+            }
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // 3. SMOOTH SCROLL
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', smooth: true });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // 3. CURSOR LOGIC (Desktop Only)
+        // 4. CURSOR & INTERACTION
         const cursorDot = document.getElementById('cursor-dot');
         const cursorCircle = document.getElementById('cursor-circle');
         
         if (window.matchMedia("(hover: hover)").matches) {
             window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
-                
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                gsap.to(cursorCircle, {
-                    x: posX - 20,
-                    y: posY - 20,
-                    duration: 0.6,
-                    ease: 'power3.out'
-                });
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                gsap.to(cursorCircle, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.6, ease: 'power3.out' });
             });
-
-            // Magnetic Buttons
             document.querySelectorAll('.magnetic-btn').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    gsap.to(btn, { x: x * 0.5, y: y * 0.5, duration: 0.3 });
+                    gsap.to(btn, { x: (e.clientX - rect.left - rect.width/2)*0.5, y: (e.clientY - rect.top - rect.height/2)*0.5, duration: 0.3 });
                 });
-                btn.addEventListener('mouseleave', () => {
-                    gsap.to(btn, { x: 0, y: 0, duration: 0.3 });
-                });
+                btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.3 }));
             });
-
-            // Hover States
             document.querySelectorAll('.hover-trigger').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
         }
 
-        // 4. SCROLL ANIMATIONS
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Text Scroll Reveal
+        // 5. PARALLAX
         gsap.utils.toArray('.reveal-scroll').forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: { trigger: el, start: 'top 85%' },
-                y: 50,
-                opacity: 0,
-                duration: 1.5,
-                ease: 'power3.out'
-            });
+            gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 50, opacity: 0, duration: 1.5, ease: 'power3.out' });
         });
-
-        // Parallax Images
         gsap.utils.toArray('img[data-speed], video[data-speed]').forEach(media => {
-            gsap.to(media, {
-                yPercent: -20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: media.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
+            gsap.to(media, { yPercent: -20, ease: "none", scrollTrigger: { trigger: media.parentElement, start: "top bottom", end: "bottom top", scrub: true }});
         });
     </script>
 </body>
